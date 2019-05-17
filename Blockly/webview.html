@@ -65,11 +65,16 @@
       <category name="Variables" custom="VARIABLE"></category>
     </xml>
   <script>
-    var workspace = Blockly.inject('blocklyDiv',
+   var workspace = Blockly.inject('blocklyDiv',
         {
           toolbox: document.getElementById('toolbox')
         });
-    workspace.addChangeListener(myUpdateFunction);
+    workspace.addChangeListener(changeEvent => {
+      if (changeEvent.targetField) {
+            var obj = JSON.stringify(changeEvent.targetField.menuGenerator_);
+            alert(obj);
+      }
+    });
     var lab1 = document.getElementById(':1.label');
     var lab2 = document.getElementById(':2.label');
     var lab3 = document.getElementById(':3.label');
@@ -79,10 +84,10 @@
     var lab7 = document.getElementById(':7.label');
     lab1.classList.add('motorIcon');
     lab2.classList.add('sensorIcon');
-    lab3.classList.add('motorIcon');
-    lab4.classList.add('motorIcon');
-    lab5.classList.add('motorIcon');
-    lab6.classList.add('motorIcon');
+    lab3.classList.add('loopsIcon');
+    lab4.classList.add('logicIcon');
+    lab5.classList.add('mathIcon');
+    lab6.classList.add('timeIcon');
     lab7.classList.add('motorIcon');
   </script>
 </body>
