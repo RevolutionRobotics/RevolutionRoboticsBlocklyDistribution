@@ -27,64 +27,81 @@
 <body>
   <div id="blocklyDiv"></div>
   <xml id="toolbox">
-    <category name="motors" colour="#e60312" file>
-      <block type="block_drive"></block>
-      <block type="block_motor"></block>
-      <block type="block_stop_motor"></block>
-      <block type="block_stop_all_motors"></block>
-    </category>
-    <category name="sensors" colour="#f8bc08">
-      <block type="block_ultrasonic_sensor"></block>
-      <block type="block_bumper"></block>
-      <block type="block_set_led"></block>
-      <block type="colour_picker"></block>
-      <block type="colour_rgb"></block>
-    </category>
-    <category name="loops" colour="#dd7d3a">
-      <block type="block_repeat_forever"></block>
-      <block type="block_break"></block>
-      <block type="block_repeat_while"></block>
-      <block type="block_repeat_until"></block>
-      <block type="block_terminate_program"></block>
-      <block type="block_terminate_all"></block>
-    </category>
-    <category name="logic" colour="#0264ff">
-      <block type="controls_if"></block>
-      <block type="controls_ifelse"></block>
-      <block type="logic_boolean"></block>
-      <block type="logic_compare"></block>
-    </category>
-    <category name="math" colour="#4dc88f">
-      <block type="math_number"></block>
-      <block type="math_arithmetic"></block>
-      <block type="math_round"></block>
-      <block type="math_modulo"></block>
-      <block type="math_random_int"></block>
-    </category>
-    <category name="Time" colour="#d9dee1">
-      <block type="block_wait"></block>
-      <block type="block_global_timer"></block>
-    </category>
-    <category name="Variables" custom="VARIABLE"></category>
-  </xml>
+      <category name="motors" colour="#e60312">
+          <block type="block_drive"></block>
+          <block type="block_motor"></block>
+          <block type="spin_motor"></block>
+          <block type="block_stop_motor"></block>
+          <block type="block_stop_all_motors"></block>        
+        </category>
+        <category name="sensors" colour="#f8bc08">
+          <block type="block_ultrasonic_sensor"></block>
+          <block type="block_bumper"></block>
+          <block type="play_tune"></block>
+          <block type="colour_picker"></block>
+          <block type="colour_rgb2"></block>
+          <block type="block_set_led"></block>
+          <block type="block_set_multiple_led"></block>                
+        </category>
+        <category name="loops" colour="#dd7d3a">
+          <block type="controls_repeat_ext2"></block>
+          <block type="block_repeat_forever"></block>
+          <block type="block_repeat_while"></block>
+          <block type="block_repeat_until"></block>        
+          <block type="block_break"></block>          
+          <block type="block_terminate_program"></block>
+          <block type="block_terminate_all"></block>
+        </category>
+        <category name="logic" colour="#0264ff">
+          <block type="logic_boolean"></block>
+          <block type="if_then"></block>
+          <block type="if_then_else"></block>        
+          <block type="logic_and"></block>
+          <block type="logic_or"></block>
+          <block type="logic_not"></block>
+          <block type="logic_compare"></block>
+        </category>
+        <category name="math" colour="#4dc88f">
+          <block type="math_number"></block>
+          <block type="math_arithmetic2"></block>
+          <block type="math_round2"></block>
+          <block type="math_trig2"></block>        
+          <block type="math_random_int2"></block>
+        </category>
+        <category name="time" colour="#868a8c">
+          <block type="block_wait"></block>
+          <block type="block_global_timer"></block>
+        </category>
+        <category name="variables" colour="#cc7be6" custom="VARIABLE"></category>
+        <category name="functions" colour="#6ab3c1" custom="PROCEDURE"></category>
+    </xml>
   <script>
-    var workspace = Blockly.inject('blocklyDiv', {
-      toolbox: document.getElementById('toolbox')
-    })
-    var lab1 = document.getElementById(':1.label')
-    var lab2 = document.getElementById(':2.label')
-    var lab3 = document.getElementById(':3.label')
-    var lab4 = document.getElementById(':4.label')
-    var lab5 = document.getElementById(':5.label')
-    var lab6 = document.getElementById(':6.label')
-    var lab7 = document.getElementById(':7.label')
-    lab1.classList.add('motorIcon')
-    lab2.classList.add('sensorIcon')
-    lab3.classList.add('loopsIcon')
-    lab4.classList.add('logicIcon')
-    lab5.classList.add('mathIcon')
-    lab6.classList.add('timeIcon')
-    lab7.classList.add('motorIcon')
+   var workspace = Blockly.inject('blocklyDiv',
+        {
+          toolbox: document.getElementById('toolbox')
+        });
+    workspace.addChangeListener(changeEvent => {
+      if (changeEvent.targetField) {
+            var obj = JSON.stringify(changeEvent.targetField.menuGenerator_);
+            alert(obj);
+      }
+    });
+    var lab1 = document.getElementById(':1.label');
+    var lab2 = document.getElementById(':2.label');
+    var lab3 = document.getElementById(':3.label');
+    var lab4 = document.getElementById(':4.label');
+    var lab5 = document.getElementById(':5.label');
+    var lab6 = document.getElementById(':6.label');
+    var lab7 = document.getElementById(':7.label');
+    var lab8 = document.getElementById(':8.label');
+    lab1.classList.add('motorIcon');
+    lab2.classList.add('sensorIcon');
+    lab3.classList.add('loopsIcon');
+    lab4.classList.add('logicIcon');
+    lab5.classList.add('mathIcon');
+    lab6.classList.add('timeIcon');
+    lab7.classList.add('variablesIcon');
+    lab8.classList.add('functionsIcon');
   </script>
 </body>
 
