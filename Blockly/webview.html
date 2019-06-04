@@ -81,11 +81,11 @@
     })
 
     var METHOD_SIGNATURE = {
-      LOAD_XML_PROGRAM = 'loadXMLProgram', // Native -> JS, xmlString: String
-      SAVE_PROGRAM = 'saveProgram', // Native -> JS
-      ON_XML_PROGRAM_SAVED = 'onXMLProgramSaved', //  JS -> Native, xmlString: String
-      ON_PYTHON_PROGRAM_SAVED = 'onPythonProgramSaved', //  JS -> Native, pythonString: String
-      ON_VARIABLES_EXPORTED = 'onVariablesExported' //  JS -> Native, variables: String in 'var1,var2,var3'
+      LOAD_XML_PROGRAM: 'loadXMLProgram', // Native -> JS, xmlString: String
+      SAVE_PROGRAM: 'saveProgram', // Native -> JS
+      ON_XML_PROGRAM_SAVED: 'onXMLProgramSaved', //  JS -> Native, xmlString: String
+      ON_PYTHON_PROGRAM_SAVED: 'onPythonProgramSaved', //  JS -> Native, pythonString: String
+      ON_VARIABLES_EXPORTED: 'onVariablesExported' //  JS -> Native, variables: String in 'var1,var2,var3'
     };
 
     function createIOSJavascriptBridge(callback) {
