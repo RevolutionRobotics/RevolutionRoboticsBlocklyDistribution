@@ -99,16 +99,18 @@
       window.webkit.messageHandlers.iOS_Native_InjectJavascript.postMessage(null)
     }
 
-    NativeBridge.loadXMLProgram = function (xml) {
-      console.log(xml)
-      var xml = Blockly.Xml.textToDom(fileString);
-      Blockly.mainWorkspace.clear();
-      Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, xml);
-    }
+    var NativeBridge = {
+      loadXMLProgram: function (xml) {
+        console.log(xml)
+        var xml = Blockly.Xml.textToDom(fileString);
+        Blockly.mainWorkspace.clear();
+        Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, xml);
+      },
 
-    NativeBridge.saveProgram = function () {
-      var xml = Blockly.Xml.workspaceToDom(this.workspace);
-      var xmlText = Blockly.Xml.domToText(xml);
+      saveProgram: function () {
+        var xml = Blockly.Xml.workspaceToDom(this.workspace);
+        var xmlText = Blockly.Xml.domToText(xml);
+      }
     }
 
     createIOSJavascriptBridge(function (bridge) {
