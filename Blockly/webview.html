@@ -111,9 +111,10 @@
       var variables = Blockly.Variables.allUsedVarModels(Blockly.mainWorkspace).map(variable => variable.name)
         .join(",")
       var pythonCode = Blockly.Python.workspaceToCode(Blockly.mainWorkspace);
-      console.log('XML', xmlText);
+
+      NativeBridge.onXMLProgramSaved(xmlText);
       NativeBridge.onPythonProgramSaved(pythonCode);
-      console.log('All used variables', variables);
+      NativeBridge.onVariablesExported(variables);
     };
 
     createIOSJavascriptBridge(function (bridge) {
