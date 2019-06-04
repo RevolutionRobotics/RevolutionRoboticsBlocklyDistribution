@@ -101,10 +101,14 @@
 
     NativeBridge.loadXMLProgram = function (xml) {
       console.log(xml)
+      var xml = Blockly.Xml.textToDom(fileString);
+      Blockly.mainWorkspace.clear();
+      Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, xml);
     }
 
     NativeBridge.saveProgram = function () {
-      console.log('Tapped on save')
+      var xml = Blockly.Xml.workspaceToDom(this.workspace);
+      var xmlText = Blockly.Xml.domToText(xml);
     }
 
     createIOSJavascriptBridge(function (bridge) {
