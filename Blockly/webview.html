@@ -109,9 +109,12 @@
       saveProgram: function () {
         var xml = Blockly.Xml.workspaceToDom(Blockly.mainWorkspace);
         var xmlText = Blockly.Xml.domToText(xml);
+        var variables = Blockly.Variables.allUsedVarModels(Blockly.mainWorkspace).map(variable => variable.name)
+          .join(",")
         var pythonCode = Blockly.Python.workspaceToCode(Blockly.mainWorkspace);
         console.log('XML', xmlText);
         console.log('Python', pythonCode);
+        console.log('All used variables', variables);
       }
     }
 
