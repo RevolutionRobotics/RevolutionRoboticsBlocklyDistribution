@@ -101,15 +101,17 @@
 
     var NativeBridge = {
       loadXMLProgram: function (xmlString) {
-        console.log(xml)
         var xml = Blockly.Xml.textToDom(xmlString);
         Blockly.mainWorkspace.clear();
         Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, xml);
       },
 
       saveProgram: function () {
-        var xml = Blockly.Xml.workspaceToDom(this.workspace);
+        var xml = Blockly.Xml.workspaceToDom(Blockly.mainWorkspace);
         var xmlText = Blockly.Xml.domToText(xml);
+        var pythonCode = Blockly.Python.workspaceToCode(Blockly.mainWorkspace);
+        console.log('XML', xmlText);
+        console.log('Python', pythonCode);
       }
     }
 
