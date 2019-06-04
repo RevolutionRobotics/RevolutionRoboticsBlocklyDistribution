@@ -113,7 +113,7 @@
           .join(",")
         var pythonCode = Blockly.Python.workspaceToCode(Blockly.mainWorkspace);
         console.log('XML', xmlText);
-        console.log('Python', pythonCode);
+        NativeBridge.onPythonProgramSaved(pythonCode);
         console.log('All used variables', variables);
       }
     }
