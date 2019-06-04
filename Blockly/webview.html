@@ -99,24 +99,22 @@
       window.webkit.messageHandlers.iOS_Native_InjectJavascript.postMessage(null)
     }
 
-    var NativeBridge = {
-      loadXMLProgram: function (xmlString) {
-        var xml = Blockly.Xml.textToDom(xmlString);
-        Blockly.mainWorkspace.clear();
-        Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, xml);
-      },
+    function loadXMLProgram(xmlString) {
+      var xml = Blockly.Xml.textToDom(xmlString);
+      Blockly.mainWorkspace.clear();
+      Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, xml);
+    };
 
-      saveProgram: function () {
-        var xml = Blockly.Xml.workspaceToDom(Blockly.mainWorkspace);
-        var xmlText = Blockly.Xml.domToText(xml);
-        var variables = Blockly.Variables.allUsedVarModels(Blockly.mainWorkspace).map(variable => variable.name)
-          .join(",")
-        var pythonCode = Blockly.Python.workspaceToCode(Blockly.mainWorkspace);
-        console.log('XML', xmlText);
-        NativeBridge.onPythonProgramSaved(pythonCode);
-        console.log('All used variables', variables);
-      }
-    }
+    function saveProgram() {
+      var xml = Blockly.Xml.workspaceToDom(Blockly.mainWorkspace);
+      var xmlText = Blockly.Xml.domToText(xml);
+      var variables = Blockly.Variables.allUsedVarModels(Blockly.mainWorkspace).map(variable => variable.name)
+        .join(",")
+      var pythonCode = Blockly.Python.workspaceToCode(Blockly.mainWorkspace);
+      console.log('XML', xmlText);
+      NativeBridge.onPythonProgramSaved(pythonCode);
+      console.log('All used variables', variables);
+    };
 
     createIOSJavascriptBridge(function (bridge) {
       bridge.registerHandler('testJavascriptHandler', function (data, responseCallback) {
