@@ -100,9 +100,9 @@
     }
 
     var NativeBridge = {
-      loadXMLProgram: function (xml) {
+      loadXMLProgram: function (xmlString) {
         console.log(xml)
-        var xml = Blockly.Xml.textToDom(fileString);
+        var xml = Blockly.Xml.textToDom(xmlString);
         Blockly.mainWorkspace.clear();
         Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, xml);
       },
