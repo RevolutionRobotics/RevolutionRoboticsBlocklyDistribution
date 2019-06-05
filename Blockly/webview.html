@@ -117,6 +117,8 @@
       NativeBridge.onVariablesExported(variables);
     };
 
+    console.log('userAgent', this.window.navigator.userAgent);
+
     createIOSJavascriptBridge(function (bridge) {
       bridge.registerHandler('testJavascriptHandler', function (data, responseCallback) {
         console.log('iOS called testJavascriptHandler with', data)
