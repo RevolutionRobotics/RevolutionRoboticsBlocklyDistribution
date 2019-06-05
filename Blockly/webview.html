@@ -119,7 +119,9 @@
       NativeBridge.onVariablesExported(variables);
     };
 
-    console.log('navigator', window.navigator);
+    function clearWorkspace() {
+      Blockly.mainWorkspace.clear();
+    }
 
     createIOSJavascriptBridge(function (bridge) {
       bridge.registerHandler('testJavascriptHandler', function (data, responseCallback) {
