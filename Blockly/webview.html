@@ -89,14 +89,16 @@
     };
 
     function createIOSJavascriptBridge(callback) {
-      if (window.WKWebViewJavascriptBridge) {
-        return callback(WKWebViewJavascriptBridge)
+      if (window.navigator.userAgent === 'iOS-Blockly') {
+        if (window.WKWebViewJavascriptBridge) {
+          return callback(WKWebViewJavascriptBridge)
+        }
+        if (window.WKWVJBCallbacks) {
+          return window.WKWVJBCallbacks.push(callback)
+        }
+        window.WKWVJBCallbacks = [callback]
+        window.webkit.messageHandlers.iOS_Native_InjectJavascript.postMessage(null)
       }
-      if (window.WKWVJBCallbacks) {
-        return window.WKWVJBCallbacks.push(callback)
-      }
-      window.WKWVJBCallbacks = [callback]
-      window.webkit.messageHandlers.iOS_Native_InjectJavascript.postMessage(null)
     }
 
     function loadXMLProgram(xmlString) {
@@ -117,7 +119,7 @@
       NativeBridge.onVariablesExported(variables);
     };
 
-    console.log('userAgent', this.window.navigator.userAgent);
+    console.log('navigator', window.navigator);
 
     createIOSJavascriptBridge(function (bridge) {
       bridge.registerHandler('testJavascriptHandler', function (data, responseCallback) {
