@@ -123,6 +123,20 @@
       Blockly.mainWorkspace.clear();
     }
 
+    function closeToolbox() {
+      Blockly.mainWorkspace.toolbox_.flyout_.hide();
+      restoreCategories();
+    }
+
+    function restoreCategories() {
+      var elements = document.getElementsByClassName('blocklyTreeRow blocklyTreeSelected');
+
+      [].forEach.call(elements, function(el) {        
+        el.classList.remove("blocklyTreeSelected");
+        el.style.removeProperty("background-color");
+      });
+    }
+
     createIOSJavascriptBridge(function (bridge) {
       bridge.registerHandler('testJavascriptHandler', function (data, responseCallback) {
         console.log('iOS called testJavascriptHandler with', data)
