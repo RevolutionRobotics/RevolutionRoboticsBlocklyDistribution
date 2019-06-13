@@ -123,10 +123,14 @@
 
       if (iOSBlocklyBrowser && bridge) {
         bridge.callHandler(METHOD_SIGNATURE.ON_PYTHON_PROGRAM_SAVED, {
-          param: pythonCode
+          parameter: pythonCode
         })
-        bridge.callHandler(METHOD_SIGNATURE.ON_XML_PROGRAM_SAVED, xmlText)
-        bridge.callHandler(METHOD_SIGNATURE.ON_VARIABLES_EXPORTED, variables)
+        bridge.callHandler(METHOD_SIGNATURE.ON_XML_PROGRAM_SAVED, {
+          parameter: xmlText
+        })
+        bridge.callHandler(METHOD_SIGNATURE.ON_VARIABLES_EXPORTED, {
+          parameter: variables
+        })
         return
       }
 
