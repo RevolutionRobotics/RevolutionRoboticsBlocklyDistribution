@@ -89,8 +89,10 @@
       ON_VARIABLES_EXPORTED: 'NativeBridge.onVariablesExported' //  JS -> Native, variables: String in 'var1,var2,var3'
     };
 
+    var iOSBlocklyBrowser = window.navigator.userAgent === 'iOS-Blockly';
+
     function createIOSJavascriptBridge(callback) {
-      if (window.navigator.userAgent === 'iOS-Blockly') {
+      if (iOSBlocklyBrowser) {
         if (window.WKWebViewJavascriptBridge) {
           return callback(WKWebViewJavascriptBridge)
         }
@@ -109,16 +111,27 @@
     };
 
     function saveProgram() {
+      saveProgramWithBridge()
+    };
+
+    function saveProgramWithBridge(bridge) {
       var xml = Blockly.Xml.workspaceToDom(Blockly.mainWorkspace);
       var xmlText = Blockly.Xml.domToText(xml);
-      var variables = Blockly.Variables.allUsedVarModels(Blockly.mainWorkspace).map(variable => variable.name)
-        .join(",")
+      var variablesArray = Blockly.Variables.allUsedVarModels(Blockly.mainWorkspace);
+      var variables = variablesArray ? variablesArray.map(variable => variable.name).join(",") : ""
       var pythonCode = Blockly.Python.workspaceToCode(Blockly.mainWorkspace);
+
+      if (iOSBlocklyBrowser && bridge) {
+        bridge.callHandler(METHOD_SIGNATURE.ON_PYTHON_PROGRAM_SAVED, pythonCode)
+        bridge.callHandler(METHOD_SIGNATURE.ON_XML_PROGRAM_SAVED, xmlText)
+        bridge.callHandler(METHOD_SIGNATURE.ON_VARIABLES_EXPORTED, variables)
+        return
+      }
 
       NativeBridge.onXMLProgramSaved(xmlText);
       NativeBridge.onPythonProgramSaved(pythonCode);
       NativeBridge.onVariablesExported(variables);
-    };
+    }
 
     function clearWorkspace() {
       Blockly.mainWorkspace.clear();
@@ -140,26 +153,16 @@
 
     createIOSJavascriptBridge(function (bridge) {
       bridge.registerHandler(METHOD_SIGNATURE.LOAD_XML_PROGRAM, function (xmlString) {
-        console.log(`iOS called ${METHOD_SIGNATURE.LOAD_XML_PROGRAM} with`, xmlString)
-        // loadXMLProgram(xmlString)
+        loadXMLProgram(xmlString)
       })
 
       bridge.registerHandler(METHOD_SIGNATURE.SAVE_PROGRAM, function () {
-        console.log(`iOS called ${METHOD_SIGNATURE.SAVE_PROGRAM}`)
-        // saveProgram()
+        saveProgramWithBridge(bridge)
       })
 
       bridge.registerHandler(METHOD_SIGNATURE.CLEAR_WORKSPACE, function () {
-        console.log(`iOS called ${METHOD_SIGNATURE.CLEAR_WORKSPACE}`)
-        // clearWorkspace()
+        clearWorkspace()
       })
-
-      bridge.callHandler('testiOSCallback', {
-        'foo': 'bar'
-      }, function (response) {
-        console.log('JS got response', response)
-      })
-
     });
 
     var lab1 = document.getElementById(':1.label')
