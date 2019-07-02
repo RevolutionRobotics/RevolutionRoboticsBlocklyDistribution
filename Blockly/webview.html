@@ -151,7 +151,7 @@
     function loadXMLProgram(xmlString) {
       var xml = Blockly.Xml.textToDom(xmlString);
       Blockly.mainWorkspace.clear();
-      Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, xml);
+      Blockly.Xml.domToWorkspace(xml, Blockly.mainWorkspace);
     };
 
     function saveProgram() {
